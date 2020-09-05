@@ -1,1 +1,2 @@
 AUDIO_FILES_DIR = "audio_files"
+NUM_BUTTONS_PER_ROW = 3

@@ -1,19 +1,26 @@
-from typing import Iterable
+from typing import Sequence
 from typing import Union
 from typing import List
 from pathlib import Path
+import math
 
 from bokeh.models.widgets import Button
 from bokeh.events import ButtonClick
 from bokeh.models.callbacks import CustomJS
 from bokeh.layouts import row
-from bokeh.layouts import Row
+from bokeh.layouts import column
+from bokeh.layouts import Column
 
 from utils import gather_mp3_files
+from utils import split_sequence
 
 
-def build_layout(buttons: Iterable[Button]) -> Row:
-    return row(*buttons)
+def build_layout(buttons: Sequence[Button],
+                 num_per_row: int) -> Column:
+    buttons_per_row = split_sequence(buttons, num_per_row)
+    layout = column([row(curr_buttons) for curr_buttons in buttons_per_row],
+                    sizing_mode="stretch_width")
+    return layout
 
 
 def build_all_audio_buttons(files_dir: Union[str, Path]) -> List[Button]:
