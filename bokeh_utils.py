@@ -43,6 +43,6 @@ def build_audio_button(label: str, audio_base64: str) -> Button:
     snd.play();
     """
     callback = CustomJS(code=js_code)
-    audio_button = Button(label=label)
+    audio_button = Button(label=label, button_type="success")
     audio_button.js_on_event(ButtonClick, callback)
     return audio_button
