@@ -42,7 +42,10 @@ def build_audio_button(label: str, audio_base64: str) -> Button:
     var snd = new Audio("data:audio/mp3;base64,{audio_base64}");
     snd.play();
     """
+    layout_options = dict(align="center", sizing_mode="scale_width",
+                          aspect_ratio=1)
     callback = CustomJS(code=js_code)
-    audio_button = Button(label=label, button_type="success")
+    audio_button = Button(label=label, css_classes=["custom_button_bokeh"],
+                          **layout_options)
     audio_button.js_on_event(ButtonClick, callback)
     return audio_button
