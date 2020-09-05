@@ -2,11 +2,11 @@ from typing import Sequence
 from typing import Union
 from typing import List
 from pathlib import Path
-import math
 
 from bokeh.models.widgets import Button
 from bokeh.events import ButtonClick
 from bokeh.models.callbacks import CustomJS
+from bokeh.models import Div
 from bokeh.layouts import row
 from bokeh.layouts import column
 from bokeh.layouts import Column
@@ -16,10 +16,15 @@ from utils import split_sequence
 
 
 def build_layout(buttons: Sequence[Button],
-                 num_per_row: int) -> Column:
+                 num_per_row: int,
+                 title: str) -> Column:
+    layout_options = dict(align="center", sizing_mode="scale_width")
     buttons_per_row = split_sequence(buttons, num_per_row)
-    layout = column([row(curr_buttons) for curr_buttons in buttons_per_row],
-                    sizing_mode="stretch_width")
+    button_rows = [row(curr_buttons) for curr_buttons in buttons_per_row]
+    title = Div(text=f"<h1>{title}</h1>", **layout_options)
+    layout = column(title,
+                    *button_rows,
+                    **layout_options)
     return layout
 
 
