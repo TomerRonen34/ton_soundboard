@@ -49,6 +49,6 @@ def build_audio_button(label: str, audio_base64: str) -> Button:
     # audio_button = Button(label=label, css_classes=["custom_button_bokeh"],
     #                       **layout_options)
     audio_button = Button(label=label, css_classes=["custom_button_bokeh"],
-                          width=200, height=200)
+                          width=300, height=300)
     audio_button.js_on_event(ButtonClick, callback)
     return audio_button
