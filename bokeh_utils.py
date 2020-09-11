@@ -18,9 +18,10 @@ from utils import split_sequence
 def build_layout(buttons: Sequence[Button],
                  num_per_row: int,
                  title: str) -> Column:
-    layout_options = dict(align="center", sizing_mode="scale_width")
+    # layout_options = dict(align="center", sizing_mode="scale_width")
+    layout_options = dict(align="center")
     buttons_per_row = split_sequence(buttons, num_per_row)
-    button_rows = [row(curr_buttons) for curr_buttons in buttons_per_row]
+    button_rows = [row(curr_buttons, **layout_options) for curr_buttons in buttons_per_row]
     title = Div(text=f"<h1>{title}</h1>", **layout_options)
     layout = column(title,
                     *button_rows,
@@ -45,7 +46,9 @@ def build_audio_button(label: str, audio_base64: str) -> Button:
     layout_options = dict(align="center", sizing_mode="scale_width",
                           aspect_ratio=1)
     callback = CustomJS(code=js_code)
+    # audio_button = Button(label=label, css_classes=["custom_button_bokeh"],
+    #                       **layout_options)
     audio_button = Button(label=label, css_classes=["custom_button_bokeh"],
-                          **layout_options)
+                          width=200, height=200)
     audio_button.js_on_event(ButtonClick, callback)
     return audio_button

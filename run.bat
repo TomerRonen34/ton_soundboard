@@ -1,2 +1,2 @@
-bokeh serve --show ton_soundboard.py
+bokeh serve --show .
 
