@@ -33,16 +33,16 @@ def build_layout(buttons: Sequence[Button],
 def build_all_audio_buttons(files_dir: Union[str, Path]) -> List[Button]:
     all_button_props = gather_button_props(files_dir)
     buttons = [
-        build_audio_button(button_props.get_audio_based64(),
+        build_audio_button(button_props.audio_path,
                            button_props.css_class_name)
         for button_props in all_button_props
     ]
     return buttons
 
 
-def build_audio_button(audio_base64: str, css_class: str = "custom_button_bokeh") -> Button:
+def build_audio_button(audio_path: Path, css_class: str) -> Button:
     js_code = f"""
-    var snd = new Audio("data:audio/mp3;base64,{audio_base64}");
+    var snd = new Audio("{audio_path.as_posix()}");
     snd.play();
     """
     callback = CustomJS(code=js_code)
