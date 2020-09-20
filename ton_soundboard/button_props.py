@@ -1,0 +1,54 @@
+from pathlib import Path
+from typing import Union
+from typing import List
+
+from utils import encode_file_as_base64
+
+
+class ButtonProps:
+    def __init__(self,
+                 audio_path: Union[str, Path],
+                 image_extension: str = ".png",
+                 parent_dir_for_css: str = "ton_soundboard"):
+        self.audio_path = Path(audio_path)
+        self.image_path = self.audio_path.with_suffix(image_extension)
+        self.css_class_name = self.audio_path.stem + "_button"
+        self.parent_dir_for_css = parent_dir_for_css
+        self._assert_files_exist()
+
+    def _assert_files_exist(self):
+        assert self.audio_path.exists(), f"Audio path doesn't exists: {self.audio_path}"
+        assert self.image_path.exists(), f"Image path doesn't exists: {self.audio_path}"
+
+    def get_audio_based64(self):
+        encoded_audio = encode_file_as_base64(self.audio_path)
+        return encoded_audio
+
+    def generate_css_class_code(self):
+        image_path_for_css = Path(self.parent_dir_for_css) / self.image_path
+        css_code = f"""
+.{self.css_class_name} button.bk.bk-btn.bk-btn-default {{
+    background-image: url('{image_path_for_css.as_posix()}');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-color: gray;
+    border-radius: 15%;
+}}
+"""
+        return css_code
+
+
+def gather_button_props(button_files_dir: Union[str, Path]) -> List[ButtonProps]:
+    audio_paths = Path(button_files_dir).glob("*.mp3")
+    all_button_props = [ButtonProps(audio_path) for audio_path in audio_paths]
+    return all_button_props
+
+
+def create_css_styles_file(button_files_dir: Union[str, Path],
+                           css_styles_path: Union[str, Path]):
+    all_button_props = gather_button_props(button_files_dir)
+    all_css_classes = [b.generate_css_class_code() for b in all_button_props]
+    css_styles_code = ''.join(all_css_classes)
+    with open(css_styles_path, 'w') as f:
+        f.write(css_styles_code)

@@ -11,8 +11,9 @@ from bokeh.layouts import row
 from bokeh.layouts import column
 from bokeh.layouts import Column
 
-from utils import gather_mp3_files
+from button_props import gather_button_props
 from utils import split_sequence
+from config import button_size_pixels
 
 
 def build_layout(buttons: Sequence[Button],
@@ -30,25 +31,22 @@ def build_layout(buttons: Sequence[Button],
 
 
 def build_all_audio_buttons(files_dir: Union[str, Path]) -> List[Button]:
-    buttons = []
-    mp3_files_name2encoded = gather_mp3_files(files_dir)
-    for file_name, audio_base64 in mp3_files_name2encoded.items():
-        button = build_audio_button(file_name, audio_base64)
-        buttons.append(button)
+    all_button_props = gather_button_props(files_dir)
+    buttons = [
+        build_audio_button(button_props.get_audio_based64(),
+                           button_props.css_class_name)
+        for button_props in all_button_props
+    ]
     return buttons
 
 
-def build_audio_button(label: str, audio_base64: str) -> Button:
+def build_audio_button(audio_base64: str, css_class: str = "custom_button_bokeh") -> Button:
     js_code = f"""
     var snd = new Audio("data:audio/mp3;base64,{audio_base64}");
     snd.play();
     """
-    layout_options = dict(align="center", sizing_mode="scale_width",
-                          aspect_ratio=1)
     callback = CustomJS(code=js_code)
-    # audio_button = Button(label=label, css_classes=["custom_button_bokeh"],
-    #                       **layout_options)
-    audio_button = Button(label=label, css_classes=["custom_button_bokeh"],
-                          width=300, height=300)
+    audio_button = Button(label='', css_classes=[css_class],
+                          width=button_size_pixels, height=button_size_pixels)
     audio_button.js_on_event(ButtonClick, callback)
     return audio_button
