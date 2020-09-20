@@ -1,2 +1,2 @@
-bokeh serve --show .
+bokeh serve --show ton_soundboard
 
