@@ -34,7 +34,9 @@ def build_all_audio_buttons(files_dir: Union[str, Path]) -> List[Button]:
     mp3_files_name2encoded = gather_mp3_files(files_dir)
     for file_name, audio_base64 in mp3_files_name2encoded.items():
         button = build_audio_button(file_name, audio_base64)
-        buttons.append(button)
+        col = column([Div(text="<h1>looooooooooooooooooool</h1>", width=300),
+                      button])
+        buttons.append(col)
     return buttons
 
 
@@ -48,6 +50,8 @@ def build_audio_button(label: str, audio_base64: str) -> Button:
     callback = CustomJS(code=js_code)
     # audio_button = Button(label=label, css_classes=["custom_button_bokeh"],
     #                       **layout_options)
+    # label = "abcdefghij\nklmnopqrst\nuvwxyz"
+    label = "ab<br>cd11111<br>1111111111111111111111111111111111111111111111111111111111111111111111111"
     audio_button = Button(label=label, css_classes=["custom_button_bokeh"],
                           width=300, height=300)
     audio_button.js_on_event(ButtonClick, callback)
