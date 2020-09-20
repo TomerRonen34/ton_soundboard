@@ -2,8 +2,6 @@ from pathlib import Path
 from typing import Union
 from typing import List
 
-from utils import encode_file_as_base64
-
 
 class ButtonProps:
     def __init__(self,
@@ -19,10 +17,6 @@ class ButtonProps:
     def _assert_files_exist(self):
         assert self.audio_path.exists(), f"Audio path doesn't exists: {self.audio_path}"
         assert self.image_path.exists(), f"Image path doesn't exists: {self.audio_path}"
-
-    def get_audio_based64(self):
-        encoded_audio = encode_file_as_base64(self.audio_path)
-        return encoded_audio
 
     def generate_css_class_code(self):
         image_path_for_css = Path(self.parent_dir_for_css) / self.image_path

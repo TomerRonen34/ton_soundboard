@@ -7,25 +7,21 @@ from bokeh.models.widgets import Button
 from bokeh.events import ButtonClick
 from bokeh.models.callbacks import CustomJS
 from bokeh.models import Div
-from bokeh.layouts import row
 from bokeh.layouts import column
 from bokeh.layouts import Column
+from bokeh.layouts import gridplot
 
 from button_props import gather_button_props
-from utils import split_sequence
 from config import button_size_pixels
 
 
 def build_layout(buttons: Sequence[Button],
-                 num_per_row: int,
+                 num_buttons_per_row: int,
                  title: str) -> Column:
-    # layout_options = dict(align="center", sizing_mode="scale_width")
     layout_options = dict(align="center")
-    buttons_per_row = split_sequence(buttons, num_per_row)
-    button_rows = [row(curr_buttons, **layout_options) for curr_buttons in buttons_per_row]
     title = Div(text=f"<h1>{title}</h1>", **layout_options)
     layout = column(title,
-                    *button_rows,
+                    gridplot(buttons, ncols=num_buttons_per_row),
                     **layout_options)
     return layout
 
