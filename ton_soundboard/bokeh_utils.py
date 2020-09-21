@@ -15,6 +15,27 @@ from button_props import gather_button_props
 from config import button_size_pixels
 
 
+class Layout:
+    def __init__(self,
+                 buttons: Sequence[Button],
+                 num_buttons_per_row: int,
+                 title: str):
+        self._inner_layout = build_layout(buttons, num_buttons_per_row, title)
+        self._collapse_button = Button(label="Collapse")
+        self._collapse_button.on_click(self._toggle_inner_layout)
+        self.layout = column()
+        self.layout.children = [self._collapse_button, self._inner_layout]
+        self._is_collapsed = False
+
+    def _toggle_inner_layout(self):
+        if not self._is_collapsed:
+            self.layout.children = [self._collapse_button]
+            self._is_collapsed = True
+        else:
+            self.layout.children = [self._collapse_button, self._inner_layout]
+            self._is_collapsed = False
+
+
 def build_layout(buttons: Sequence[Button],
                  num_buttons_per_row: int,
                  title: str) -> Column:

@@ -5,11 +5,13 @@ from config import BUTTON_FILES_DIR
 from config import NUM_BUTTONS_PER_ROW
 from bokeh_utils import build_all_audio_buttons
 from bokeh_utils import build_layout
+from bokeh_utils import Layout
 
 
 def main():
     audio_buttons = build_all_audio_buttons(BUTTON_FILES_DIR)
-    layout = build_layout(audio_buttons, NUM_BUTTONS_PER_ROW, APP_NAME)
+    # layout = build_layout(audio_buttons, NUM_BUTTONS_PER_ROW, APP_NAME)
+    layout = Layout(audio_buttons, NUM_BUTTONS_PER_ROW, APP_NAME).layout
     curdoc().add_root(layout)
     curdoc().title = APP_NAME
 
