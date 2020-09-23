@@ -34,7 +34,7 @@ class ButtonProps:
 
 
 def gather_button_props(button_files_dir: Union[str, Path]) -> List[ButtonProps]:
-    audio_paths = Path(button_files_dir).rglob('*.mp3')
+    audio_paths = sorted(Path(button_files_dir).rglob('*.mp3'))
     all_button_props = [ButtonProps(audio_path) for audio_path in audio_paths]
     return all_button_props
 

@@ -8,3 +8,4 @@ APP_NAME = "Tales Of Nowhere Soundboard"
 SECTION_HEADER_CSS_CLASS = "section_header_button"
 SOUNDBOARD_TITLE_CSS_CLASS = "soundboard_title"
 SECTION_MARGIN_TOP_RIGHT_BOTTOM_LEFT = (0, 0, int(BUTTON_SIZE_PIXELS / 4), 0)
+SECTION_TITLE_PREFIX_REGEX = r"^x\d+_"

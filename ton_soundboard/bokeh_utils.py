@@ -3,6 +3,7 @@ from typing import Sequence
 from typing import Union
 from typing import List
 from pathlib import Path
+import re
 
 from bokeh.models.widgets import Button
 from bokeh.events import ButtonClick
@@ -16,6 +17,7 @@ from button_props import gather_button_props
 from config import SOUNDBOARD_TITLE_CSS_CLASS
 from config import SECTION_HEADER_CSS_CLASS
 from config import SECTION_MARGIN_TOP_RIGHT_BOTTOM_LEFT
+from config import SECTION_TITLE_PREFIX_REGEX
 
 
 class ButtonSection:
@@ -37,7 +39,8 @@ class ButtonSection:
                                num_buttons_per_row: int,
                                button_size_pixels: int):
         buttons = _build_audio_buttons_from_dir(files_dir, button_size_pixels)
-        section_title = Path(files_dir).stem
+        section_title_with_prefix = Path(files_dir).stem
+        section_title = re.sub(SECTION_TITLE_PREFIX_REGEX, '', section_title_with_prefix)
         section = cls(buttons, num_buttons_per_row, section_title)
         return section
 
@@ -80,7 +83,7 @@ class Soundboard:
                                          num_buttons_per_row: int,
                                          button_size_pixels: int):
         button_sections = []
-        for subdir in Path(master_dir).iterdir():
+        for subdir in sorted(Path(master_dir).iterdir()):
             if subdir.is_dir():
                 section = ButtonSection.build_section_from_dir(
                     subdir, num_buttons_per_row, button_size_pixels)
