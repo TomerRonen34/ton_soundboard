@@ -26,7 +26,7 @@ class ButtonProps:
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    background-color: gray;
+    background-color: white;
     border-radius: 15%;
 }}
 """
