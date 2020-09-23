@@ -1,18 +1,17 @@
 from bokeh.plotting import curdoc
 
 from config import APP_NAME
-from config import BUTTON_FILES_DIR
+from config import BUTTON_FILES_MASTER_DIR
 from config import NUM_BUTTONS_PER_ROW
-from bokeh_utils import build_all_audio_buttons
-from bokeh_utils import build_layout
-from bokeh_utils import Layout
+from config import BUTTON_SIZE_PIXELS
+from bokeh_utils import Soundboard
 
 
 def main():
-    audio_buttons = build_all_audio_buttons(BUTTON_FILES_DIR)
-    # layout = build_layout(audio_buttons, NUM_BUTTONS_PER_ROW, APP_NAME)
-    layout = Layout(audio_buttons, NUM_BUTTONS_PER_ROW, APP_NAME).layout
-    curdoc().add_root(layout)
+    soundboard = Soundboard.build_soundboard_from_master_dir(
+        title=APP_NAME, master_dir=BUTTON_FILES_MASTER_DIR,
+        num_buttons_per_row=NUM_BUTTONS_PER_ROW, button_size_pixels=BUTTON_SIZE_PIXELS)
+    curdoc().add_root(soundboard.layout)
     curdoc().title = APP_NAME
 
 

@@ -34,15 +34,22 @@ class ButtonProps:
 
 
 def gather_button_props(button_files_dir: Union[str, Path]) -> List[ButtonProps]:
-    audio_paths = Path(button_files_dir).glob("*.mp3")
+    audio_paths = Path(button_files_dir).rglob('*.mp3')
     all_button_props = [ButtonProps(audio_path) for audio_path in audio_paths]
     return all_button_props
 
 
 def create_css_styles_file(button_files_dir: Union[str, Path],
-                           css_styles_path: Union[str, Path]):
+                           output_path: Union[str, Path],
+                           default_css_styles_path: Union[str, Path] = None):
     all_button_props = gather_button_props(button_files_dir)
     all_css_classes = [b.generate_css_class_code() for b in all_button_props]
     css_styles_code = ''.join(all_css_classes)
-    with open(css_styles_path, 'w') as f:
+
+    if default_css_styles_path is not None:
+        with open(default_css_styles_path, 'r') as f:
+            default_css_styles_code = f.read()
+        css_styles_code = default_css_styles_code + css_styles_code
+
+    with open(output_path, 'w') as f:
         f.write(css_styles_code)

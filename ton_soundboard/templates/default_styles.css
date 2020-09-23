@@ -1,0 +1,13 @@
+.soundboard_title .bk.bk-clearfix {
+    text-align: center;
+    color: black;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.section_header_button button.bk.bk-btn.bk-btn-default {
+    background-color: rebeccapurple;
+    color: white;
+    font-size: 30px;
+
+}
