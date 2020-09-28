@@ -93,7 +93,8 @@ class Soundboard:
 
     def _build_layout(self) -> Column:
         align_options = dict(align="center")
-        title_div = Div(text=self._title, css_classes=[SOUNDBOARD_TITLE_CSS_CLASS], **align_options)
+        title_div = Div(text=self._title, css_classes=[SOUNDBOARD_TITLE_CSS_CLASS],
+                        margin=SECTION_MARGIN_TOP_RIGHT_BOTTOM_LEFT, **align_options)
         section_layouts = [section.layout for section in self._button_sections]
         credits_div = Div(text=CREDITS, css_classes=[CREDITS_CSS_CLASS], **align_options)
         layout = column(title_div,

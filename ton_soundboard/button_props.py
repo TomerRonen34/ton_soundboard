@@ -6,7 +6,7 @@ from typing import List
 class ButtonProps:
     def __init__(self,
                  audio_path: Union[str, Path],
-                 image_extension: str = ".png",
+                 image_extension: str = ".jpg",
                  parent_dir_for_css: str = "ton_soundboard"):
         self.audio_path = Path(audio_path)
         self.image_path = self.audio_path.with_suffix(image_extension)

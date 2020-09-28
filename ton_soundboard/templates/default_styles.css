@@ -1,18 +1,17 @@
 .soundboard_title .bk.bk-clearfix {
     text-align: center;
     color: black;
-    font-size: 50px;
+    font-size: 60px;
     font-weight: bold;
 }
 
 .section_header_button button.bk.bk-btn.bk-btn-default {
     background-color: rebeccapurple;
     color: white;
-    font-size: 30px;
-
+    font-size: 36px;
 }
 
 .credits .bk.bk-clearfix {
     color: black;
-    font-size: 25px;
+    font-size: 30px;
 }
