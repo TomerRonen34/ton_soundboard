@@ -14,7 +14,7 @@ from bokeh.layouts import Column
 from bokeh.layouts import gridplot
 
 from button_props import gather_button_props
-from config import SOUNDBOARD_TITLE_CSS_CLASS
+from config import SOUNDBOARD_TITLE_CSS_CLASS, CREDITS, CREDITS_CSS_CLASS
 from config import SECTION_HEADER_CSS_CLASS
 from config import SECTION_MARGIN_TOP_RIGHT_BOTTOM_LEFT
 from config import SECTION_TITLE_PREFIX_REGEX
@@ -95,8 +95,10 @@ class Soundboard:
         align_options = dict(align="center")
         title_div = Div(text=self._title, css_classes=[SOUNDBOARD_TITLE_CSS_CLASS], **align_options)
         section_layouts = [section.layout for section in self._button_sections]
+        credits_div = Div(text=CREDITS, css_classes=[CREDITS_CSS_CLASS], **align_options)
         layout = column(title_div,
                         *section_layouts,
+                        credits_div,
                         **align_options)
         return layout
 
