@@ -3,6 +3,7 @@ audacity
 
 # PyCharm
 .idea
+ton_soundboard/templates/styles.css
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
