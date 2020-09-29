@@ -16,7 +16,7 @@ class ButtonProps:
 
     def _assert_files_exist(self):
         assert self.audio_path.exists(), f"Audio path doesn't exists: {self.audio_path}"
-        assert self.image_path.exists(), f"Image path doesn't exists: {self.audio_path}"
+        assert self.image_path.exists(), f"Image path doesn't exists: {self.image_path}"
 
     def generate_css_class_code(self):
         image_path_for_css = Path(self.parent_dir_for_css) / self.image_path

@@ -9,9 +9,11 @@
     background-color: rebeccapurple;
     color: white;
     font-size: 36px;
+    text-align: left;
 }
 
 .credits .bk.bk-clearfix {
     color: black;
     font-size: 30px;
+    text-align: left;
 }

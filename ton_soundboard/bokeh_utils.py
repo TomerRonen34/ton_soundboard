@@ -29,7 +29,8 @@ class ButtonSection:
         self._num_buttons_per_row = num_buttons_per_row
         self._title = title
         self._button_grid = gridplot(buttons, ncols=num_buttons_per_row)
-        self._header_button = self._build_header_button()
+        self._header_button_expanded = self._build_header_button(is_collapsed=False)
+        self._header_button_collapsed = self._build_header_button(is_collapsed=True)
         self.layout = column(margin=SECTION_MARGIN_TOP_RIGHT_BOTTOM_LEFT)
         self._expand_button_grid()
 
@@ -44,10 +45,12 @@ class ButtonSection:
         section = cls(buttons, num_buttons_per_row, section_title)
         return section
 
-    def _build_header_button(self):
+    def _build_header_button(self, is_collapsed: bool):
         single_button_width = self._buttons[0].width
         header_button_width = single_button_width * self._num_buttons_per_row
-        header_button = Button(label=self._title, width=header_button_width,
+        is_collapsed_arrow = "► " if is_collapsed else "▼ "
+        header_button = Button(label=is_collapsed_arrow + self._title,
+                               width=header_button_width,
                                css_classes=[SECTION_HEADER_CSS_CLASS],
                                align="center")
         header_button.on_click(self._toggle_button_grid)
@@ -60,11 +63,11 @@ class ButtonSection:
             self._collapse_button_grid()
 
     def _expand_button_grid(self):
-        self.layout.children = [self._header_button, self._button_grid]
+        self.layout.children = [self._header_button_expanded, self._button_grid]
         self._is_collapsed = False
 
     def _collapse_button_grid(self):
-        self.layout.children = [self._header_button]
+        self.layout.children = [self._header_button_collapsed]
         self._is_collapsed = True
 
 
