@@ -18,6 +18,7 @@ Made with love by Tomer Ronen using Python's Bokeh Server.
 <u>Art credits:</u>
 <br>
 memoangeles (goblin), artofmervin (scifi woman), Beth Davies (horse cowboy), 
-Arkham Horror card game (Henry Armitage), official Tales of Nowhere site (character icons)
+Arkham Horror card game (Henry Armitage), official Tales of Nowhere site (character icons), 
+The Muppets (swedish chef)
 """
 CREDITS_CSS_CLASS = "credits"
