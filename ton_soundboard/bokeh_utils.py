@@ -6,8 +6,6 @@ from pathlib import Path
 import re
 
 from bokeh.models.widgets import Button
-from bokeh.events import ButtonClick
-from bokeh.models.callbacks import CustomJS
 from bokeh.models import Div
 from bokeh.layouts import column
 from bokeh.layouts import Column
@@ -39,11 +37,22 @@ class ButtonSection:
                                files_dir: Union[str, Path],
                                num_buttons_per_row: int,
                                button_size_pixels: int):
-        buttons = _build_audio_buttons_from_dir(files_dir, button_size_pixels)
+        buttons = cls._build_audio_buttons_from_dir(files_dir, button_size_pixels)
         section_title_with_prefix = Path(files_dir).stem
         section_title = re.sub(SECTION_TITLE_PREFIX_REGEX, '', section_title_with_prefix)
         section = cls(buttons, num_buttons_per_row, section_title)
         return section
+
+    @classmethod
+    def _build_audio_buttons_from_dir(cls,
+                                      files_dir: Union[str, Path],
+                                      button_size_pixels: int) -> List[Button]:
+        all_button_props = gather_button_props(files_dir)
+        buttons = [
+            button_props.build_button(button_size_pixels)
+            for button_props in all_button_props
+        ]
+        return buttons
 
     def _build_header_button(self, is_collapsed: bool):
         single_button_width = self._buttons[0].width
@@ -105,27 +114,3 @@ class Soundboard:
                         credits_div,
                         **align_options)
         return layout
-
-
-def _build_audio_buttons_from_dir(files_dir: Union[str, Path],
-                                  button_size_pixels: int) -> List[Button]:
-    all_button_props = gather_button_props(files_dir)
-    buttons = [
-        _build_audio_button(button_props.audio_path,
-                            button_props.css_class_name,
-                            button_size_pixels)
-        for button_props in all_button_props
-    ]
-    return buttons
-
-
-def _build_audio_button(audio_path: Path, css_class: str, button_size_pixels: int) -> Button:
-    js_code = f"""
-    var snd = new Audio("{audio_path.as_posix()}");
-    snd.play();
-    """
-    callback = CustomJS(code=js_code)
-    audio_button = Button(label='', css_classes=[css_class],
-                          width=button_size_pixels, height=button_size_pixels)
-    audio_button.js_on_event(ButtonClick, callback)
-    return audio_button

@@ -5,10 +5,14 @@
     {{ bokeh_css }}
     {{ bokeh_js }}
     <style type="text/css">
-{% include 'styles.css' %}
+{% include 'static_styles.css' %}
+{% include 'audio_button_styles.css' %}
     </style>
   </head>
   <body>
+  <script type="text/javascript">
+    {% include 'audio_preloading.js' %}
+  </script>
     {{ plot_div|indent(8) }}
     {{ plot_script|indent(8) }}
   </body>

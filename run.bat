@@ -4,7 +4,7 @@ IF "%PORT%"=="" (
 )
 
 cd ton_soundboard
-python create_css_styles.py
+python generate_css_and_js_code_for_audio_buttons.py
 
 cd ..
 bokeh serve --show ton_soundboard --port=%PORT%
