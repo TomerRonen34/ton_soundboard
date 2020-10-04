@@ -15,10 +15,13 @@ Made with love by Tomer Ronen using Python's Bokeh Server.
 <a href="https://github.com/TomerRonen34/ton_soundboard" target="_blank">Code and audio files</a>  
 <br>
 <br>
+Special thanks to Rita Volosin and John Good for cutting many of the snippets.
+<br>
+<br>
 <u>Art credits:</u>
 <br>
 memoangeles (goblin), artofmervin (scifi woman), Beth Davies (horse cowboy), 
 Arkham Horror card game (Henry Armitage), official Tales of Nowhere site (character icons), 
-The Muppets (swedish chef)
+The Muppets (swedish chef), Vicki Jauron (cowwoman)
 """
 CREDITS_CSS_CLASS = "credits"
