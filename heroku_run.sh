@@ -1,5 +1,5 @@
 cd ton_soundboard
-python generate_css_and_js_code_for_audio_buttons.py
+python scripts/generate_css_and_js_code_for_audio_buttons.py
 
 cd ..
 bokeh serve \
