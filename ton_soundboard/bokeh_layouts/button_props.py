@@ -6,6 +6,8 @@ from bokeh.models.widgets import Button
 from bokeh.events import ButtonClick
 from bokeh.models.callbacks import CustomJS
 
+from config import PROJECT_ROOT
+
 
 class ButtonProps:
     def __init__(self,
@@ -14,9 +16,7 @@ class ButtonProps:
         self.audio_path = Path(audio_path)
         self.image_path = self.audio_path.with_suffix(image_extension)
         self._assert_files_exist()
-
         self.button_id = self.audio_path.stem + "_button"
-        self.parent_dir_for_css_and_js = Path(__file__).absolute().parent.stem
 
     def _assert_files_exist(self):
         assert self.audio_path.exists(), f"Audio path doesn't exists: {self.audio_path}"
@@ -37,7 +37,7 @@ class ButtonProps:
         return js_code
 
     def generate_css_class_code(self):
-        image_path_for_css = Path(self.parent_dir_for_css_and_js) / self.image_path
+        image_path_for_css = self.image_path.relative_to(PROJECT_ROOT)
         css_code = f"""
 .{self.button_id} button.bk.bk-btn.bk-btn-default {{
     background-image: url('{image_path_for_css.as_posix()}');
@@ -51,7 +51,7 @@ class ButtonProps:
         return css_code
 
     def generate_js_code_for_audio_preloading(self) -> str:
-        audio_path_for_js = Path(self.parent_dir_for_css_and_js) / self.audio_path
+        audio_path_for_js = self.audio_path.relative_to(PROJECT_ROOT)
         js_code = f"""
 window.{self.button_id} = new Audio('{audio_path_for_js.as_posix()}');
 window.{self.button_id}.preload = "auto";

@@ -4,7 +4,7 @@ from config import APP_NAME
 from config import BUTTON_FILES_MASTER_DIR
 from config import NUM_BUTTONS_PER_ROW
 from config import BUTTON_SIZE_PIXELS
-from bokeh_utils import Soundboard
+from bokeh_layouts.soundboard import Soundboard
 
 
 def main():
