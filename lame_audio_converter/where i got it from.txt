@@ -1,0 +1,3 @@
+Official LAME exists only in source code format.
+This site has a compile .exe:
+https://www.rarewares.org/mp3-lame-bundle.php
