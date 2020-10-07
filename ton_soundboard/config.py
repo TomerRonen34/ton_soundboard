@@ -2,8 +2,8 @@ from pathlib import Path
 
 SOURCES_ROOT = Path(__file__).absolute().parent
 PROJECT_ROOT = SOURCES_ROOT.parent
-SOURCES_ROOT_RELATIVE = Path(SOURCES_ROOT.stem)
-BUTTON_FILES_MASTER_DIR = SOURCES_ROOT_RELATIVE / "static" / "button_files"
+BUTTON_FILES_MASTER_DIR = SOURCES_ROOT / "static" / "button_files_adjusted_volume"
+# BUTTON_FILES_MASTER_DIR = SOURCES_ROOT / "static" / "button_files_original_volume"
 LAME_EXE_PATH = PROJECT_ROOT / "lame_audio_converter" / "lame3.100.1-x64" / "lame.exe"
 
 APP_NAME = "Tales Of Nowhere Soundboard"

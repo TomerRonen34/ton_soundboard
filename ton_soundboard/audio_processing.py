@@ -6,7 +6,7 @@ from scipy.io import wavfile
 import matplotlib.pyplot as plt
 import numpy as np
 
-from ton_soundboard.config import LAME_EXE_PATH
+from config import LAME_EXE_PATH
 
 
 def adjust_mp3_amplitude(original_mp3_path: Path, adjusted_mp3_path: Path, desired_max_amplitude: int = 30_000):
