@@ -9,13 +9,19 @@ import numpy as np
 from config import LAME_EXE_PATH
 
 
-def adjust_mp3_amplitude(original_mp3_path: Path, adjusted_mp3_path: Path, desired_max_amplitude: int = 30_000):
+def adjust_mp3_amplitude(original_mp3_path: Path,
+                         adjusted_mp3_path: Path,
+                         high_amplitude: int = 25_000,
+                         max_amplitude: int = 30_000,
+                         adjustment_quantile: float = 0.99):
     with TemporaryDirectory() as tmp_dir:
         converted_wav_path = Path(tmp_dir) / "converted.wav"
         adjusted_wav_path = Path(tmp_dir) / "adjusted.wav"
 
         _convert_mp3_to_wav(original_mp3_path, converted_wav_path)
-        _adjust_wav_amplitude(converted_wav_path, adjusted_wav_path, desired_max_amplitude)
+        _adjust_wav_amplitude(converted_wav_path, adjusted_wav_path,
+                              high_amplitude, max_amplitude,
+                              adjustment_quantile)
         _convert_wav_to_mp3(adjusted_wav_path, adjusted_mp3_path)
 
 
@@ -29,19 +35,24 @@ def _convert_wav_to_mp3(wav_path: Path, mp3_path: Path) -> None:
     check_output(conversion_command, shell=True)
 
 
-def _adjust_wav_amplitude(input_wav_path: Path, output_wav_path: Path,
-                          desired_max_amplitude: int, clip_quantile: float = 0.995) -> None:
+def _adjust_wav_amplitude(input_wav_path: Path,
+                          output_wav_path: Path,
+                          high_amplitude: int,
+                          max_amplitude: int,
+                          adjustment_quantile: float) -> None:
     sample_rate, audio_data = wavfile.read(input_wav_path)
-    adjusted_audio_data = _linearly_adjust_amplitude(audio_data, desired_max_amplitude, clip_quantile)
+    adjusted_audio_data = _linearly_adjust_amplitude(
+        audio_data, high_amplitude, max_amplitude, adjustment_quantile)
     wavfile.write(output_wav_path, sample_rate, adjusted_audio_data)
 
 
 def _linearly_adjust_amplitude(audio_data: np.ndarray,
-                               desired_max_amplitude: int,
-                               clip_quantile: float) -> np.ndarray:
-    value_at_clip_quantile = np.quantile(audio_data.flat, clip_quantile)
-    adjusted_audio_data = audio_data / value_at_clip_quantile * desired_max_amplitude
-    adjusted_audio_data = np.clip(adjusted_audio_data, a_min=-desired_max_amplitude, a_max=desired_max_amplitude)
+                               high_amplitude: int,
+                               max_amplitude: int,
+                               adjustment_quantile: float) -> np.ndarray:
+    value_at_quantile = np.quantile(np.abs(audio_data).flat, adjustment_quantile)
+    adjusted_audio_data = audio_data / value_at_quantile * high_amplitude
+    adjusted_audio_data = np.clip(adjusted_audio_data, a_min=-max_amplitude, a_max=max_amplitude)
     adjusted_audio_data = adjusted_audio_data.astype(audio_data.dtype)
     return adjusted_audio_data
 
