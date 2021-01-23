@@ -21,7 +21,11 @@ CREDITS_CSS_CLASS = "credits"
 CREDITS = """
 Made with love by Tomer Ronen using Python's Bokeh Server.
 <br>
-<a href="https://github.com/TomerRonen34/ton_soundboard" target="_blank">Code and audio files</a>  
+<a href="https://github.com/TomerRonen34/ton_soundboard" target="_blank">Code and audio files</a>
+<br>
+<br>
+Want to add a snippet of your own? Message me on the <a href="https://discord.com/invite/BrEx5PU" target="_blank">Tales Of Nowhere discord server</a> (username: TommyPhant) 
+with the episode number and timestamp, and I'll cut and add it to the soundboard :)
 <br>
 <br>
 Special thanks to Rita Volosin and John Good for cutting many of the snippets.
@@ -31,5 +35,5 @@ Special thanks to Rita Volosin and John Good for cutting many of the snippets.
 <br>
 memoangeles (goblin), artofmervin (scifi woman), Beth Davies (horse cowboy), 
 Arkham Horror card game (Henry Armitage), official Tales of Nowhere site (character icons), 
-The Muppets (swedish chef), Vicki Jauron (cowwoman)
+The Muppets (swedish chef), Vicki Jauron (cowwoman), FriendlyStock (toilets)
 """
