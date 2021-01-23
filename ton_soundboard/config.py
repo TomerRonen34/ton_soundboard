@@ -7,6 +7,7 @@ BUTTON_FILES_MASTER_DIR = SOURCES_ROOT / "static" / "button_files_adjusted_volum
 LAME_EXE_PATH = PROJECT_ROOT / "lame_audio_converter" / "lame3.100.1-x64" / "lame.exe"
 
 APP_NAME = "Tales Of Nowhere Soundboard"
+SUBTITLE = "mobile & desktop friendly"
 
 NUM_BUTTONS_PER_ROW = 3
 BUTTON_SIZE_PIXELS = 300
@@ -16,6 +17,7 @@ SECTION_TITLE_PREFIX_REGEX = r"^x\d+_"
 
 SECTION_HEADER_CSS_CLASS = "section_header_button"
 SOUNDBOARD_TITLE_CSS_CLASS = "soundboard_title"
+SUBTITLE_CSS_CLASS = "subtitle"
 CREDITS_CSS_CLASS = "credits"
 
 CREDITS = """
@@ -25,7 +27,7 @@ Made with love by Tomer Ronen using Python's Bokeh Server.
 <br>
 <br>
 Want to add a snippet of your own? Message me on the <a href="https://discord.com/invite/BrEx5PU" target="_blank">Tales Of Nowhere discord server</a> (username: TommyPhant) 
-with the episode number and timestamp, and I'll cut and add it to the soundboard :)
+with the episode number and timestamp, and I'll add the snippet &#128515;
 <br>
 <br>
 Special thanks to Rita Volosin and John Good for cutting many of the snippets.
